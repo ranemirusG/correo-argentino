@@ -79,8 +79,6 @@ def salir():
 def func1():
     print("Espera mientras se carga la pagina...")
     make_descargar_buttons_list()
-    #En este punto tengo la lista con TODOS los botones Descargar
-    # print(len(all_descargar_buttons_list)) #CUENTA 100, perfecto!
     make_etiquetas_a_descargar_list()
     #Confirmar
     confirmar_hay_mas = etiquetas_a_descargar == 100
