@@ -3,17 +3,6 @@ import os
 import time
 from selenium import webdriver
 from selenium.webdriver.common.by import By
-# from selenium.webdriver.chrome.options import Options
-# from selenium.webdriver.common.keys import Keys
-# from selenium.webdriver.support import expected_conditions as EC
-# from selenium.common.exceptions import TimeoutException
-# from selenium.webdriver.support.ui import WebDriverWait
-# from functools import total_ordering
-# import webbrowser
-# import subprocess #para correr shell script
-# from contextlib import contextmanager
-# from selenium.webdriver.support.expected_conditions import \
-#     staleness_of # ?????
 
 DW_DIR= "/Users/ramirogarcia/lecop/correo_imprimir"
 options = webdriver.ChromeOptions()
@@ -37,9 +26,9 @@ def comenzar():
     # driver.maximize_window()
     driver.get("https://www.correoargentino.com.ar/MiCorreo/public/login")
     username_field = driver.find_element(By.ID, "email" )
-    username_field.send_keys("lecopcentral@gmail.com")
+    username_field.send_keys("ejemplo@mail.com")
     password_field = driver.find_element(By.ID, "password" )
-    password_field.send_keys("qmb2pfx_GQE9eub3xqv")
+    password_field.send_keys("contraseña1234")
     login_button = driver.find_element(By.XPATH, "/html/body/div[4]/div/div/div/div[2]/form/div[3]/div[2]/button" )
     login_button.click()
     #ir a gestion de envios
@@ -60,7 +49,7 @@ def get_ticket_100():
     page_number.__add__(1)  # por si cambia de pagina, ya tiene el numero preparado
 
 
-#lista de los botones Descargar (seran 100, arranca en 0)
+#lista de los botones Descargar (100 por pagina)
 def make_descargar_buttons_list():
     # contenedor
     tbody = driver.find_element(By.TAG_NAME,"tbody")
@@ -70,7 +59,7 @@ def make_descargar_buttons_list():
         if (cada_boton.get_attribute("title") == 'Descargar'):
             all_descargar_buttons_list.append(cada_boton)
 
-# lista de lo que efectivamente necesito
+# lista de los tickets que necesitamos descargar
 def make_etiquetas_a_descargar_list():
     for cada_boton in all_descargar_buttons_list:
             if (cada_boton.get_attribute("onclick") != "mensajeEstado()"):
@@ -83,13 +72,11 @@ def descargar():
     total_descargado = 0
     for cada_boton in etiquetas_a_descargar:
         #get name
-        # nearer_ancestor = cada_boton.find_element_by_xpath("*//ancestor::tr/td[8]/div").text.strip()
         nearer_ancestor = cada_boton.find_element(By.XPATH, "*//ancestor::tr/td[8]/div").text.strip()
         div_content_list = nearer_ancestor.split()
         nombre = (div_content_list[-2] + "_" + div_content_list[-1] + ".pdf")
         #click en descargar
         cada_boton.click()
-        #time.sleep(3) # por las dudas
         #rename
         original_file_name = os.popen(f"ls -rt {DW_DIR} | tail -n 1").read().strip()
         os.rename(f"{DW_DIR}/{original_file_name}",f"{DW_DIR}/{nombre}")
@@ -131,9 +118,7 @@ def func1():
         print("Descarga cancelada.")
         salir()
 
-#Workflow
+
 comenzar()
 func1()
-# time.sleep(2)
 exit()
-#TODO time.sleep en descargar() ---> reemplazar x comparar ls del directorio destino
