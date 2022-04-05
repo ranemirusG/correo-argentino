@@ -4,7 +4,7 @@ import time
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 
-DW_DIR= "/Users/ramirogarcia/lecop/correo_imprimir"
+DW_DIR= "/path/to/download/directory"
 options = webdriver.ChromeOptions()
 options.add_argument("--headless")
 options.add_experimental_option('prefs', {
