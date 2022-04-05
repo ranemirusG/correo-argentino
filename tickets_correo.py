@@ -23,7 +23,6 @@ page_number = 1
 # declarar funciones
 def comenzar():
     driver.implicitly_wait(30)
-    # driver.maximize_window()
     driver.get("https://www.correoargentino.com.ar/MiCorreo/public/login")
     username_field = driver.find_element(By.ID, "email" )
     username_field.send_keys("ejemplo@mail.com")
