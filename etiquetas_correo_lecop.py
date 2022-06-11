@@ -47,9 +47,9 @@ def comenzar():
     # driver.maximize_window()
     driver.get("https://www.correoargentino.com.ar/MiCorreo/public/login")
     username_field = driver.find_element(By.ID, "email" )
-    username_field.send_keys(mail@mail)
+    username_field.send_keys("example@mail.com")
     password_field = driver.find_element(By.ID, "password" )
-    password_field.send_keys(yourpassword)
+    password_field.send_keys("examplepassword")
     login_button = driver.find_element(By.XPATH, "/html/body/div[4]/div/div/div/div[2]/form/div[3]/div[2]/button" )
     try:
         login_button.click()
