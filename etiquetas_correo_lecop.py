@@ -11,7 +11,7 @@ import time
 import glob
 from PyPDF2 import PdfFileMerger
 
-DW_DIR= "/Users/ramirogarcia/lecop/correo_imprimir"
+DW_DIR= "/path/to/download/directory"
 options = webdriver.ChromeOptions()
 options.add_argument("--headless")
 options.add_experimental_option('prefs', {
@@ -47,9 +47,9 @@ def comenzar():
     # driver.maximize_window()
     driver.get("https://www.correoargentino.com.ar/MiCorreo/public/login")
     username_field = driver.find_element(By.ID, "email" )
-    username_field.send_keys("lecopcentral@gmail.com")
+    username_field.send_keys(mail@mail)
     password_field = driver.find_element(By.ID, "password" )
-    password_field.send_keys("qmb2pfx_GQE9eub3xqv")
+    password_field.send_keys(yourpassword)
     login_button = driver.find_element(By.XPATH, "/html/body/div[4]/div/div/div/div[2]/form/div[3]/div[2]/button" )
     try:
         login_button.click()
@@ -60,36 +60,14 @@ def comenzar():
     #ir a gestion de envios
     driver.get("https://www.correoargentino.com.ar/MiCorreo/public/listadooperaciones")
 
-
-#esta hay que quitarla en cuanto deje de aparecer el modal
-"""
-def aceptar_modal():
-    button_aceptar = wait.until(EC.invisibility_of_element(driver.find_element(By.ID, "modalLoading"))).find_element(By.XPATH, '//*[@id="mensajeModalFooterGen"]/button')
-    try:
-        button_aceptar.click()
-        #wait.until(EC.element_to_be_clickable(driver.find_element(By.XPATH, '//*[@id="mensajeModalFooterGen"]/button'))).click()
-        print("Pop-up (Modal) aceptado\n")
-    except:
-        print("PROBLEMAS CON EL MODAL DE MIERDA")
-        salir()
-"""
+    
 def next():
     go_to_next_page = driver.find_element(By.CLASS_NAME, "fa-forward")
     go_to_next_page.click() #ir a la siguiente "pagina" (es la misma url)
     print(f"Yendo a la página siguiente ({page_number}).Espera un momento...\n")
     wait.until(EC.invisibility_of_element(driver.find_element(By.ID, "modalLoading")))
 
-"""
-# ver el ultimo ticket para controlar en caso de ser necesario. 
-# El maximo de tickets por pagina es 100
-#TODO NO SIEMPRE HAY 100, claro
-def get_last_ticket():
-    global page_number
-    #last_ticket = driver.find_element(By.XPATH, "/html/body/div[2]/div[1]/div[4]/div[1]/div[1]/div[2]/div/table/tbody/tr[100]/td[8]/div").text
-    #ticket_100 = wait.until(EC.element_to_be_clickable(driver.find_element(By.XPATH, "/html/body/div[2]/div[1]/div[4]/div[1]/div[1]/div[2]/div/table/tbody/tr[100]/td[8]/div")
-    #info = ticket_100.text
-    #print(f"# # # # #\nDatos del útlimo ticket de la página {page_number}:\n{last_ticket}\n# # # # #")  
-"""
+    
 #lista de los botones Descargar (seran 100, arranca en 0)
 def make_descargar_buttons_list():
     # contenedor
@@ -196,8 +174,7 @@ def imprimir():
 
 #Workflow
 comenzar()
-#aceptar_modal()
 func()
-time.sleep(10)
+time.sleep(10) #por las dudas
 imprimir()
 exit()
